@@ -7,7 +7,6 @@ $mysqli = require __DIR__ . "/database.php";
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 if (!$user_id && !isset($_SESSION['popup_shown'])) {
-    // Set session variable to indicate that the popup has been shown
     $_SESSION['popup_shown'] = true;
 
     // Display the logsign.php modal
@@ -51,7 +50,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         // Check if user is logged in
         $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-        // Prepare SQL query with user_id column
         $sql = "INSERT INTO orders (user_id, shipping_address, payment_method, order_status, total_price) VALUES (?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("isssd", $user_id, $shipping_address, $payment_method, $order_status, $total_price);
